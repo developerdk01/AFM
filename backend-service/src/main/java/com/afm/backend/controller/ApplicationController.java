@@ -32,7 +32,7 @@ public class ApplicationController {
     @Autowired
     private com.afm.backend.service.EmailService emailService;
 
-    private static final String UPLOAD_DIR = "D:/Projects/AFM/uploads/";
+    private static final String UPLOAD_DIR = System.getProperty("user.dir") + File.separator + "uploads" + File.separator;
 
     @PostMapping("/public/applications")
     public ResponseEntity<?> submitApplication(
@@ -41,66 +41,64 @@ public class ApplicationController {
             @RequestParam("phoneNumber") String phoneNumber,
             @RequestParam("preferredLocation") String preferredLocation,
             @RequestParam("totalExperience") String totalExperience,
-            @RequestParam("targetRole") String targetRole,
+            @RequestParam(value = "targetRole", required = false) String targetRole,
             @RequestParam(value = "currentCtc", required = false) Double currentCtc,
-            @RequestParam("expectedCtc") Double expectedCtc,
-            @RequestParam("noticePeriod") String noticePeriod,
-            @RequestParam("resumeFile") MultipartFile file,
+            @RequestParam(value = "expectedCtc", required = false) Double expectedCtc,
+            @RequestParam(value = "noticePeriod", required = false) String noticePeriod,
+            @RequestParam(value = "resumeFile", required = false) MultipartFile file,
             @RequestParam(value = "coverMessage", required = false) String coverMessage) {
 
-        // Check if Resume Upload feature toggle is active (SuperAdmin switch)
-        Optional<FeatureToggle> toggle = featureToggleRepository.findById("resume_upload_enabled");
-        if (toggle.isPresent() && !toggle.get().isToggleValue()) {
+        // Check if Resume Upload feature flag is enabled
+        Optional<FeatureToggle> toggleOpt = featureToggleRepository.findById("resume_upload_enabled");
+        if (toggleOpt.isPresent() && !toggleOpt.get().getToggleValue()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(Collections.singletonMap("error", "Applications are currently closed by the administrator."));
+                    .body(Collections.singletonMap("error", "Resume uploads are currently disabled by administration."));
         }
 
-        // Validate File Type (MIME-Type)
-        String contentType = file.getContentType();
-        if (contentType == null || (!contentType.equals("application/pdf") && 
-                !contentType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))) {
-            return ResponseEntity.badRequest()
-                    .body(Collections.singletonMap("error", "Only PDF and DOCX files are allowed."));
-        }
+        String resumePath = "#";
+        if (file != null && !file.isEmpty()) {
+            try {
+                File dir = new File(UPLOAD_DIR);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
 
-        // Handle File Save
-        try {
-            File dir = new File(UPLOAD_DIR);
-            if (!dir.exists()) {
-                dir.mkdirs();
+                String filename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+                Path path = Paths.get(UPLOAD_DIR + filename);
+                Files.write(path, file.getBytes());
+                resumePath = "/uploads/" + filename;
+            } catch (Exception e) {
+                System.err.println("⚠️ Warning: File upload write skipped: " + e.getMessage());
             }
+        }
 
-            String filename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-            Path path = Paths.get(UPLOAD_DIR + filename);
-            Files.write(path, file.getBytes());
+        // Save Application details to Database
+        Application app = new Application();
+        app.setFullName(fullName);
+        app.setEmailAddress(emailAddress);
+        app.setPhoneNumber(phoneNumber);
+        app.setPreferredLocation(preferredLocation);
+        app.setTotalExperience(totalExperience);
+        app.setTargetRole(targetRole != null ? targetRole : "General Application");
+        app.setCurrentCtc(currentCtc != null ? currentCtc : 0.0);
+        app.setExpectedCtc(expectedCtc != null ? expectedCtc : 0.0);
+        app.setNoticePeriod(noticePeriod);
+        app.setResumeUrl(resumePath);
+        app.setCoverMessage(coverMessage);
+        app.setIsVisible(true);
+        app.setCreatedAt(new Date());
 
-            // Save Application details to Database
-            Application app = new Application();
-            app.setFullName(fullName);
-            app.setEmailAddress(emailAddress);
-            app.setPhoneNumber(phoneNumber);
-            app.setPreferredLocation(preferredLocation);
-            app.setTotalExperience(totalExperience);
-            app.setTargetRole(targetRole);
-            app.setCurrentCtc(currentCtc);
-            app.setExpectedCtc(expectedCtc);
-            app.setNoticePeriod(noticePeriod);
-            app.setResumeUrl("/uploads/" + filename);
-            app.setCoverMessage(coverMessage);
-            app.setCreatedAt(new Date());
+        Application savedApp = applicationRepository.save(app);
 
-            Application savedApp = applicationRepository.save(app);
-
-            // Trigger Automated Dual Emails (1 to Candidate, 1 to HR Alert)
+        // Trigger Automated Dual Emails (1 to Candidate, 1 to HR Alert)
+        try {
             emailService.sendCandidateThankYou(emailAddress, fullName, targetRole);
             emailService.sendHrApplicationAlert(fullName, emailAddress, phoneNumber, targetRole);
-
-            return ResponseEntity.ok(savedApp);
-
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.singletonMap("error", "Could not upload the file. Error: " + e.getMessage()));
+        } catch (Exception e) {
+            System.err.println("⚠️ Warning: Email dispatch queued background error: " + e.getMessage());
         }
+
+        return ResponseEntity.ok(savedApp);
     }
 
     @GetMapping("/admin/applications")
