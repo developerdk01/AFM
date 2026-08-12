@@ -705,7 +705,7 @@ export class App implements OnInit, AfterViewInit {
 
   // Load Public Jobs (only active = true)
   public async loadPublicJobs() {
-    let fetchedData = null;
+    let fetchedData: any[] = [];
     const urls = [`${this.gatewayUrl}/public/jobs`, 'http://localhost:8081/api/v1/public/jobs'];
 
     for (const url of urls) {
@@ -713,7 +713,7 @@ export class App implements OnInit, AfterViewInit {
         const res = await fetch(url);
         if (res.ok) {
           const data = await res.json();
-          if (Array.isArray(data)) {
+          if (Array.isArray(data) && data.length > 0) {
             fetchedData = data;
             break;
           }
@@ -721,18 +721,14 @@ export class App implements OnInit, AfterViewInit {
       } catch (e) {}
     }
 
-    if (Array.isArray(fetchedData)) {
-      this.jobs.set(fetchedData.filter((j: any) => j.active !== false));
-      return;
-    }
-
     const localJobs = this.getMockJobs();
-    this.jobs.set(localJobs.filter((j: any) => j.active !== false));
+    const combined = [...fetchedData, ...localJobs.filter(lj => !fetchedData.some(fj => fj.id === lj.id))];
+    this.jobs.set(combined.filter((j: any) => j.active !== false && j.isVisible !== false));
   }
 
   // Load Admin Jobs (active + inactive)
   public async loadAdminJobs() {
-    let fetchedData = null;
+    let fetchedData: any[] = [];
     const headers = { 'Authorization': `Bearer ${this.token()}` };
     const urls = [`${this.gatewayUrl}/admin/jobs`, 'http://localhost:8081/api/v1/admin/jobs'];
 
@@ -741,7 +737,7 @@ export class App implements OnInit, AfterViewInit {
         const res = await fetch(url, { headers });
         if (res.ok) {
           const data = await res.json();
-          if (Array.isArray(data)) {
+          if (Array.isArray(data) && data.length > 0) {
             fetchedData = data;
             break;
           }
@@ -749,15 +745,10 @@ export class App implements OnInit, AfterViewInit {
       } catch (e) {}
     }
 
-    if (Array.isArray(fetchedData)) {
-      this.adminJobs.set(fetchedData);
-      this.jobs.set(fetchedData.filter((j: any) => j.active !== false));
-      return;
-    }
-
     const localJobs = this.getMockJobs();
-    this.adminJobs.set(localJobs);
-    this.jobs.set(localJobs.filter((j: any) => j.active !== false));
+    const combined = [...fetchedData, ...localJobs.filter(lj => !fetchedData.some(fj => fj.id === lj.id))];
+    this.adminJobs.set(combined);
+    this.jobs.set(combined.filter((j: any) => j.active !== false && j.isVisible !== false));
   }
 
   // Save jobs to LocalStorage persistence
