@@ -50,7 +50,7 @@ public class ApplicationController {
 
         // Check if Resume Upload feature flag is enabled
         Optional<FeatureToggle> toggleOpt = featureToggleRepository.findById("resume_upload_enabled");
-        if (toggleOpt.isPresent() && !toggleOpt.get().getToggleValue()) {
+        if (toggleOpt.isPresent() && !toggleOpt.get().isToggleValue()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Collections.singletonMap("error", "Resume uploads are currently disabled by administration."));
         }

@@ -28,6 +28,7 @@ public class FeatureToggle {
     public void setToggleKey(String toggleKey) { this.toggleKey = toggleKey; }
 
     public boolean isToggleValue() { return toggleValue; }
+    public boolean getToggleValue() { return toggleValue; }
     public void setToggleValue(boolean toggleValue) { this.toggleValue = toggleValue; }
 
     public String getDescription() { return description; }
