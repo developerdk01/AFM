@@ -162,8 +162,13 @@ export class App implements OnInit, AfterViewInit {
   public forgotOtpInput = '';
   public newPasswordInput = '';
 
-  // Base API Gateway URL
-  private readonly gatewayUrl = 'http://localhost:8080/api/v1';
+  // Base API Gateway URL (Dynamic: Uses Live Render Backend in Cloud, Localhost in Dev)
+  private get gatewayUrl(): string {
+    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      return 'https://afm-onwb.onrender.com/api/v1';
+    }
+    return 'http://localhost:8080/api/v1';
+  }
 
   constructor(private sanitizer: DomSanitizer) {
     // Scroll event listener for glass header background transition
