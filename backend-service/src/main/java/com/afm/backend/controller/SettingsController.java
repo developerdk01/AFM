@@ -31,7 +31,6 @@ public class SettingsController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('HR', 'ADMIN', 'SUPERADMIN')")
     public ResponseEntity<List<FeatureToggle>> getSettings() {
         return ResponseEntity.ok(featureToggleRepository.findAll());
     }
