@@ -838,6 +838,79 @@ export class App implements OnInit, AfterViewInit {
     this.resetJobForm();
   }
 
+  // HR toggles job active status ON/OFF
+  public async toggleJobActive(id: number) {
+    const headers = {
+      'Authorization': `Bearer ${this.token()}`
+    };
+
+    try {
+      const res = await fetch(`${this.gatewayUrl}/admin/jobs/${id}/toggle`, {
+        method: 'PUT',
+        headers
+      });
+      if (res.ok) {
+        this.showToast('Job status updated!');
+        this.loadAdminJobs();
+        this.loadPublicJobs();
+        return;
+      }
+    } catch (e) {
+      console.warn('API error, updating job status locally.');
+    }
+
+    const updatedAdmin = this.adminJobs().map((j: any) => {
+      if (j.id === id) {
+        return { ...j, active: !j.active };
+      }
+      return j;
+    });
+    this.adminJobs.set(updatedAdmin);
+    this.jobs.set(updatedAdmin.filter((j: any) => j.active));
+    this.saveJobsToStorage(updatedAdmin);
+    this.showToast('Job status updated!');
+  }
+
+  // HR deletes a job vacancy
+  public async onDeleteJob(id: number) {
+    if (!confirm('Are you sure you want to delete this job vacancy?')) return;
+
+    const headers = {
+      'Authorization': `Bearer ${this.token()}`
+    };
+
+    try {
+      const res = await fetch(`${this.gatewayUrl}/admin/jobs/${id}`, {
+        method: 'DELETE',
+        headers
+      });
+      if (res.ok) {
+        this.showToast('Job vacancy deleted.');
+        this.loadAdminJobs();
+        this.loadPublicJobs();
+        return;
+      }
+    } catch (e) {
+      console.warn('API error, deleting job locally.');
+    }
+
+    const updatedAdmin = this.adminJobs().filter((j: any) => j.id !== id);
+    this.adminJobs.set(updatedAdmin);
+    this.jobs.set(updatedAdmin.filter((j: any) => j.active));
+    this.saveJobsToStorage(updatedAdmin);
+    this.showToast('Job vacancy deleted.');
+  }
+
+  public resetJobForm() {
+    this.jobRoleInput = '';
+    this.jobTypeInput = 'Private';
+    this.jobLocationInput = 'Pune';
+    this.jobExperienceInput = '2-4 Years';
+    this.jobSalaryInput = '₹ 3.5 - 4.8 LPA';
+    this.jobDescriptionInput = '';
+    this.jobSkillsInput = '';
+  }
+
   private getMockJobs() {
     if (typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem('afm_mock_jobs');

@@ -25,29 +25,32 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @PostConstruct
     public void initDefaultUsers() {
-        // Automatically seed a default SuperAdmin if the database is empty
-        if (userRepository.count() == 0) {
+        // Automatically seed default SuperAdmin and HR users
+        if (!userRepository.findByUsername("superadmin").isPresent()) {
             User superAdmin = new User();
             superAdmin.setUsername("superadmin");
-            superAdmin.setPasswordHash(passwordEncoder.encode("superpassword"));
+            superAdmin.setPasswordHash(passwordEncoder.encode("admin123"));
             superAdmin.setRole("ROLE_SUPERADMIN");
             superAdmin.setActive(true);
+            superAdmin.setIsVisible(true);
             userRepository.save(superAdmin);
-            
-            // Seed a default HR user for convenience
+        }
+        if (!userRepository.findByUsername("hruser").isPresent()) {
             User defaultHr = new User();
             defaultHr.setUsername("hruser");
             defaultHr.setPasswordHash(passwordEncoder.encode("hrpassword"));
             defaultHr.setRole("ROLE_HR");
             defaultHr.setActive(true);
+            defaultHr.setIsVisible(true);
             userRepository.save(defaultHr);
-
-            // Seed a default Admin user
+        }
+        if (!userRepository.findByUsername("adminuser").isPresent()) {
             User defaultAdmin = new User();
             defaultAdmin.setUsername("adminuser");
             defaultAdmin.setPasswordHash(passwordEncoder.encode("adminpassword"));
             defaultAdmin.setRole("ROLE_ADMIN");
             defaultAdmin.setActive(true);
+            defaultAdmin.setIsVisible(true);
             userRepository.save(defaultAdmin);
         }
     }
