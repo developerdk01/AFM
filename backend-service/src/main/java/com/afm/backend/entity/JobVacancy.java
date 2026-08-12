@@ -124,10 +124,17 @@ public class JobVacancy {
     }
 
     public Boolean getIsVisible() {
-        return isVisible;
+        return isVisible != null ? isVisible : true;
     }
 
     public void setIsVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
+        this.isVisible = isVisible != null ? isVisible : true;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (this.isVisible == null) {
+            this.isVisible = true;
+        }
     }
 }

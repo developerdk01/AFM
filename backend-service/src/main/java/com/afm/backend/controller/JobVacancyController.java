@@ -37,6 +37,7 @@ public class JobVacancyController {
     @PostMapping("/admin/jobs")
     public ResponseEntity<?> createJobVacancy(@Valid @RequestBody JobVacancy jobVacancy) {
         jobVacancy.setActive(true); // Default to active on creation
+        jobVacancy.setIsVisible(true); // Ensure isVisible is true for UI display
         JobVacancy savedVacancy = jobVacancyRepository.save(jobVacancy);
         return ResponseEntity.ok(savedVacancy);
     }
