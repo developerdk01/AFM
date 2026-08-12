@@ -729,20 +729,15 @@ export class App implements OnInit, AfterViewInit {
   // Load Public Jobs (only active = true)
   public async loadPublicJobs() {
     let fetchedData: any[] = [];
-    const urls = [`${this.gatewayUrl}/public/jobs`, 'http://localhost:8081/api/v1/public/jobs'];
-
-    for (const url of urls) {
-      try {
-        const res = await fetch(url);
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            fetchedData = data;
-            break;
-          }
+    try {
+      const res = await fetch(`${this.gatewayUrl}/public/jobs`);
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          fetchedData = data;
         }
-      } catch (e) {}
-    }
+      }
+    } catch (e) {}
 
     const localJobs = this.getMockJobs();
     const combined = [...fetchedData, ...localJobs.filter(lj => !fetchedData.some(fj => fj.id === lj.id))];
@@ -753,20 +748,15 @@ export class App implements OnInit, AfterViewInit {
   public async loadAdminJobs() {
     let fetchedData: any[] = [];
     const headers = { 'Authorization': `Bearer ${this.token()}` };
-    const urls = [`${this.gatewayUrl}/admin/jobs`, 'http://localhost:8081/api/v1/admin/jobs'];
-
-    for (const url of urls) {
-      try {
-        const res = await fetch(url, { headers });
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            fetchedData = data;
-            break;
-          }
+    try {
+      const res = await fetch(`${this.gatewayUrl}/admin/jobs`, { headers });
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          fetchedData = data;
         }
-      } catch (e) {}
-    }
+      }
+    } catch (e) {}
 
     const localJobs = this.getMockJobs();
     const combined = [...fetchedData, ...localJobs.filter(lj => !fetchedData.some(fj => fj.id === lj.id))];
