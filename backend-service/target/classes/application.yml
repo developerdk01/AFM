@@ -37,7 +37,7 @@ spring:
             enable: true
             required: true
           ssl:
-            trust: smtp.gmail.com
+            trust: "*"
 
 eureka:
   client:

@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.cors().and().csrf().disable()
                 // Don't authenticate public routes
                 .authorizeRequests()
+                .antMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/api/v1/public/**").permitAll()
                 .antMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/admin/settings").permitAll()
                 // All other endpoints require authentication
