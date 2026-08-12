@@ -38,10 +38,9 @@ spring:
 
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
 
 # Custom JWT configuration
 jwt:
