@@ -31,7 +31,7 @@ public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
+    @Autowired(required = false)
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
