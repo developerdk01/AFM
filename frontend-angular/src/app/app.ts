@@ -781,6 +781,19 @@ export class App implements OnInit, AfterViewInit {
       'Authorization': `Bearer ${this.token()}`
     };
 
+    const newJob = {
+      id: Date.now(),
+      ...payload,
+      active: true,
+      isVisible: true
+    };
+
+    // Save locally first to guarantee immediate UI update
+    const updatedList = [newJob, ...this.adminJobs().filter(j => j.id !== newJob.id)];
+    this.adminJobs.set(updatedList);
+    this.jobs.set(updatedList.filter((j: any) => j.active !== false && j.isVisible !== false));
+    this.saveJobsToStorage(updatedList);
+
     try {
       const res = await fetch(`${this.gatewayUrl}/admin/jobs`, {
         method: 'POST',
@@ -798,93 +811,8 @@ export class App implements OnInit, AfterViewInit {
       console.warn('API error, saving job locally.');
     }
 
-    // Local Persistence mode when backend API is offline
-    const newJob = {
-      id: Date.now(),
-      ...payload,
-      active: true
-    };
-    const updatedList = [newJob, ...this.adminJobs()];
-    this.adminJobs.set(updatedList);
-    this.jobs.set(updatedList.filter((j: any) => j.active));
-    this.saveJobsToStorage(updatedList);
     this.showToast('Job vacancy posted successfully!');
     this.resetJobForm();
-  }
-
-  // HR toggles job active status ON/OFF
-  public async toggleJobActive(id: number) {
-    const headers = {
-      'Authorization': `Bearer ${this.token()}`
-    };
-
-    try {
-      const res = await fetch(`${this.gatewayUrl}/admin/jobs/${id}/toggle`, {
-        method: 'PUT',
-        headers
-      });
-      if (res.ok) {
-        this.showToast('Job status updated!');
-        this.loadAdminJobs();
-        this.loadPublicJobs();
-        return;
-      }
-    } catch (e) {
-      console.warn('API error, updating job status locally.');
-    }
-
-    // Local Persistence mode
-    const updatedAdmin = this.adminJobs().map((j: any) => {
-      if (j.id === id) {
-        return { ...j, active: !j.active };
-      }
-      return j;
-    });
-    this.adminJobs.set(updatedAdmin);
-    this.jobs.set(updatedAdmin.filter((j: any) => j.active));
-    this.saveJobsToStorage(updatedAdmin);
-    this.showToast('Job status updated!');
-  }
-
-  // HR deletes a job vacancy
-  public async onDeleteJob(id: number) {
-    if (!confirm('Are you sure you want to delete this job vacancy?')) return;
-
-    const headers = {
-      'Authorization': `Bearer ${this.token()}`
-    };
-
-    try {
-      const res = await fetch(`${this.gatewayUrl}/admin/jobs/${id}`, {
-        method: 'DELETE',
-        headers
-      });
-      if (res.ok) {
-        this.showToast('Job vacancy deleted.');
-        this.loadAdminJobs();
-        this.loadPublicJobs();
-        return;
-      }
-    } catch (e) {
-      console.warn('API error, deleting job locally.');
-    }
-
-    // Local Persistence mode
-    const updatedAdmin = this.adminJobs().filter((j: any) => j.id !== id);
-    this.adminJobs.set(updatedAdmin);
-    this.jobs.set(updatedAdmin.filter((j: any) => j.active));
-    this.saveJobsToStorage(updatedAdmin);
-    this.showToast('Job vacancy deleted.');
-  }
-
-  private resetJobForm() {
-    this.jobRoleInput = '';
-    this.jobTypeInput = 'Private';
-    this.jobLocationInput = 'Pune';
-    this.jobExperienceInput = '2-4 Years';
-    this.jobSalaryInput = '₹ 3.5 - 4.8 LPA';
-    this.jobDescriptionInput = '';
-    this.jobSkillsInput = '';
   }
 
   private getMockJobs() {
@@ -893,15 +821,17 @@ export class App implements OnInit, AfterViewInit {
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
-            // Clean out legacy fake jobs if present
-            const cleanList = parsed.filter((j: any) => j.id > 1000);
-            return cleanList;
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
           }
         } catch (e) {}
       }
     }
-    return [];
+    return [
+      { id: 1001, jobRole: 'HR Manager', type: 'Private', location: 'Pune', experience: '2-4 Years', salary: '₹ 3.5 - 4.8 LPA', jobDescription: 'Human Resource Operations & Recruitment', skills: 'Recruitment, Payroll', active: true, isVisible: true },
+      { id: 1002, jobRole: 'Java Developer', type: 'Private', location: 'Pune', experience: '2-4 Years', salary: '₹ 3.5 - 4.8 LPA', jobDescription: 'Core Java 8 & Spring Boot Microservices', skills: 'Java, Spring Boot', active: true, isVisible: true },
+      { id: 1003, jobRole: 'Facility Operations Supervisor', type: 'Private', location: 'Nagpur', experience: '1-3 Years', salary: '₹ 2.8 - 3.6 LPA', jobDescription: 'Commercial Facility Operations & Maintenance', skills: 'Facility Management', active: true, isVisible: true }
+    ];
   }
 
   // Secure download resume
