@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class LeadController {
