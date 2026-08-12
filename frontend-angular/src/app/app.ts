@@ -516,7 +516,9 @@ export class App implements OnInit, AfterViewInit {
         this.showToast('Application Submitted! Reference ID generated in systems.');
         this.closeDrawer();
         this.resetApplicationForm();
-        this.loadAdminData();
+        if (this.token()) {
+          this.loadAdminData();
+        }
         return;
       }
     } catch (e) {
