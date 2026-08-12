@@ -1,0 +1,49 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: backend-service
+  datasource:
+    url: jdbc:postgresql://ep-divine-cake-aymz9at6.c-5.us-east-2.aws.neon.tech/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_ljTZNEG1A7Ub
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  redis:
+    host: localhost
+    port: 6379
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  # 📩 PRIMARY EMAIL CONFIGURATION (HR Alerts & Transactional Mails)
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: masumduhijod01@gmail.com  # Primary HR & System Sender Email Address
+    password: "qgpi hfkt tgvd xtiv"     # Active 16-character Google App Password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# Custom JWT configuration
+jwt:
+  secret: afmSecretKeyForJWTSecurity1234567890afmSecretKeyForJWTSecurity1234567890
+  expiration: 86400000 # 24 hours in milliseconds

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="200" viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad_primary_2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="grad_accent_2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#eab308" />
+    </linearGradient>
+    <linearGradient id="grad_gold_2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#ca8a04" />
+    </linearGradient>
+    <linearGradient id="grad_silver_2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+    <linearGradient id="grad_crimson_2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#991b1b" />
+    </linearGradient>
+    <filter id="shadow_2" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow_2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Logo Emblem (Left Side) -->
+  <g transform="translate(25, 25)" filter="url(#shadow_2)">
+    
+      <!-- Shield Outer Boundary -->
+      <path d="M 75 10 C 102 10, 135 18, 135 65 C 135 105, 75 138, 75 138 C 75 138, 15 105, 15 65 C 15 18, 48 10, 75 10 Z" fill="none" stroke="url(#grad_silver_2)" stroke-width="8" />
+      <!-- Inner Shield Glow Fill -->
+      <path d="M 75 18 C 96 18, 125 25, 125 65 C 125 98, 75 126, 75 126 C 75 126, 25 98, 25 65 C 25 25, 54 18, 75 18 Z" fill="#031d38" opacity="0.8" />
+      <!-- Sharp A Stem -->
+      <path d="M 75 28 L 45 110 L 60 110 L 75 72 L 90 110 L 105 110 Z" fill="url(#grad_primary_2)" />
+      <!-- Double Golden Chevrons -->
+      <path d="M 52 75 L 75 58 L 98 75" fill="none" stroke="url(#grad_gold_2)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M 52 88 L 75 71 L 98 88" fill="none" stroke="url(#grad_gold_2)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+    
+  </g>
+
+  <!-- Stacked Typography (Right Side) -->
+  <g transform="translate(195, 85)">
+    <!-- Main Company Name: AATMANIRBHAR (Large, Bold, Prominent) -->
+    <text x="0" y="15" font-family="'Montserrat', 'Segoe UI', 'Arial', sans-serif" font-size="34" font-weight="900" letter-spacing="2" fill="#ffffff" filter="url(#shadow_2)">
+      AATMANIRBHAR
+    </text>
+    
+    <!-- Decorative Metallic/Accent Divider Line -->
+    <rect x="0" y="27" width="370" height="3" rx="1.5" fill="url(#grad_accent_2)" />
+
+    <!-- Sub-heading: FACILITY MANAGEMENT PVT. LTD. (Smaller font) -->
+    <text x="0" y="48" font-family="'Montserrat', 'Segoe UI', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#38bdf8">
+      FACILITY MANAGEMENT PVT. LTD.
+    </text>
+  </g>
+</svg>

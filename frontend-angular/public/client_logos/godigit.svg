@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#222222"/>
+      <g transform="translate(20, 20)">
+        <circle cx="25" cy="25" r="22" fill="#ffcc00"/>
+        <text x="25" y="34" font-family="Arial, sans-serif" font-weight="900" font-size="22" fill="#222222" text-anchor="middle">g</text>
+      </g>
+      <text x="75" y="44" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="26" fill="#ffcc00">godigit</text>
+      <text x="75" y="62" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="10" fill="#ffffff" letter-spacing="1.5">GENERAL INSURANCE</text>
+    </svg>

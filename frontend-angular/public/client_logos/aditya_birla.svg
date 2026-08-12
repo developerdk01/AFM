@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(15, 18)">
+        <polygon points="26,0 52,26 26,52 0,26" fill="#c41230"/>
+        <polygon points="26,8 44,26 26,44 8,26" fill="#f7941e"/>
+        <circle cx="26" cy="26" r="8" fill="#ffffff"/>
+      </g>
+      <text x="75" y="36" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="16" fill="#c41230" letter-spacing="1">ADITYA BIRLA</text>
+      <text x="75" y="58" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="20" fill="#f7941e" letter-spacing="2">CAPITAL</text>
+    </svg>

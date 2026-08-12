@@ -1,0 +1,8 @@
+{
+  "name": "afmtest",
+  "version": 2,
+  "public": true,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

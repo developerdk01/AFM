@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(15, 22)">
+        <text x="0" y="32" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-style="italic" font-size="28" fill="#e31837">Mahindra</text>
+      </g>
+      <text x="145" y="54" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="13" fill="#333333" letter-spacing="1">LOGISTICS</text>
+    </svg>

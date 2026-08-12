@@ -1,0 +1,7 @@
+<svg viewBox="0 0 160 40" width="160" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- TATA blue mark -->
+  <path d="M5 10h16M13 10v20" stroke="#00A3E0" stroke-width="3" stroke-linecap="round"/>
+  <!-- Text: "TATA" and "AIG" -->
+  <text x="24" y="26" fill="#00A3E0" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="bold" font-size="16" letter-spacing="0.5px">TATA</text>
+  <text x="72" y="26" fill="#0A2540" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="bold" font-size="16" letter-spacing="0.5px">AIG</text>
+</svg>

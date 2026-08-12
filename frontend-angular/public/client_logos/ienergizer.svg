@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(15, 20)">
+        <polygon points="15,0 35,0 20,25 35,25 10,50 18,30 5,30" fill="#0055a5"/>
+      </g>
+      <text x="60" y="48" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="28" fill="#0055a5">iEnergizer</text>
+    </svg>

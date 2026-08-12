@@ -1,0 +1,7 @@
+<svg viewBox="0 0 180 40" width="180" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sunburst emblem -->
+  <path d="M5 25L15 10l10 15H5z" fill="#DA291C"/>
+  <circle cx="15" cy="18" r="4" fill="#FBB03B"/>
+  <!-- Text: "ADITYA BIRLA" -->
+  <text x="32" y="25" fill="#DA291C" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="14" letter-spacing="-0.5px">ADITYA BIRLA</text>
+</svg>

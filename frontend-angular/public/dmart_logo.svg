@@ -1,0 +1,8 @@
+<svg viewBox="0 0 160 40" width="160" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- D-Mart Green Background Icon block -->
+  <rect y="4" width="38" height="32" rx="4" fill="#008248"/>
+  <path d="M12 11h16l-3 12H15l-3-12z" fill="#FFFFFF"/>
+  <circle cx="17" cy="27" r="2.5" fill="#FBB03B"/>
+  <circle cx="25" cy="27" r="2.5" fill="#FBB03B"/>
+  <text x="46" y="27" fill="#008248" font-family="'Arial Black', sans-serif" font-weight="900" font-size="22" letter-spacing="-1px">DMart</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg viewBox="0 0 180 40" width="180" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Reliance crest -->
+  <path d="M5 25V10h12v15" stroke="#E31E24" stroke-width="3" stroke-linecap="round"/>
+  <rect x="11" y="10" width="6" height="15" fill="#E31E24"/>
+  <!-- Text: "Reliance" and "RETAIL" -->
+  <text x="26" y="22" fill="#E31E24" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="16" letter-spacing="-0.5px">Reliance</text>
+  <text x="26" y="32" fill="#475569" font-family="Arial, sans-serif" font-weight="bold" font-size="8" letter-spacing="1.5px">RETAIL</text>
+</svg>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="200" viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad_primary_6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="grad_accent_6" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#eab308" />
+    </linearGradient>
+    <linearGradient id="grad_gold_6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#ca8a04" />
+    </linearGradient>
+    <linearGradient id="grad_silver_6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+    <linearGradient id="grad_crimson_6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#991b1b" />
+    </linearGradient>
+    <filter id="shadow_6" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow_6" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Logo Emblem (Left Side) -->
+  <g transform="translate(25, 25)" filter="url(#shadow_6)">
+    
+      <!-- Slanted Slashing A -->
+      <path d="M 85 15 L 30 125 L 52 125 L 82 62 L 102 125 L 124 125 Z" fill="url(#grad_silver_6)" />
+      <!-- Speed Cut Slash 1 -->
+      <line x1="15" y1="80" x2="45" y2="80" stroke="url(#grad_accent_6)" stroke-width="5" stroke-linecap="round" />
+      <line x1="10" y1="95" x2="35" y2="95" stroke="url(#grad_accent_6)" stroke-width="5" stroke-linecap="round" />
+      <!-- Fiery Jet Crossbar Arrow -->
+      <path d="M 45 72 L 140 72 L 125 57 M 140 72 L 125 87" fill="none" stroke="url(#grad_primary_6)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow_6)" />
+    
+  </g>
+
+  <!-- Stacked Typography (Right Side) -->
+  <g transform="translate(195, 85)">
+    <!-- Main Company Name: AATMANIRBHAR (Large, Bold, Prominent) -->
+    <text x="0" y="15" font-family="'Montserrat', 'Segoe UI', 'Arial', sans-serif" font-size="34" font-weight="900" letter-spacing="2" fill="#ffffff" filter="url(#shadow_6)">
+      AATMANIRBHAR
+    </text>
+    
+    <!-- Decorative Metallic/Accent Divider Line -->
+    <rect x="0" y="27" width="370" height="3" rx="1.5" fill="url(#grad_accent_6)" />
+
+    <!-- Sub-heading: FACILITY MANAGEMENT PVT. LTD. (Smaller font) -->
+    <text x="0" y="48" font-family="'Montserrat', 'Segoe UI', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="4" fill="#38bdf8">
+      FACILITY MANAGEMENT PVT. LTD.
+    </text>
+  </g>
+</svg>

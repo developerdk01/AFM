@@ -1,0 +1,13 @@
+package com.afm.backend.repository;
+
+import com.afm.backend.entity.JobVacancy;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface JobVacancyRepository extends JpaRepository<JobVacancy, Long> {
+    List<JobVacancy> findByActiveTrueAndIsVisibleTrue();
+    List<JobVacancy> findByIsVisibleTrueOrderByIdDesc();
+}

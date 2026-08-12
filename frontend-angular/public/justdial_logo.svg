@@ -1,0 +1,7 @@
+<svg viewBox="0 0 160 40" width="160" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Text: "Justdial" -->
+  <text x="5" y="27" fill="#2563EB" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="24" letter-spacing="-0.5px">Justdial</text>
+  <!-- Search dot symbol -->
+  <circle cx="108" cy="18" r="8" fill="#FF8A00"/>
+  <path d="M108 14v8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+</svg>

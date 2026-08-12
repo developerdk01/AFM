@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" width="320" height="100">
+      <rect width="320" height="100" rx="14" fill="#0f172a"/>
+      <g transform="translate(20, 20)">
+        <circle cx="30" cy="30" r="28" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2"/>
+        <path d="M12 35 Q30 20 48 35 L48 42 Q30 28 12 42 Z" fill="#f97316"/>
+        <circle cx="30" cy="20" r="8" fill="#eab308"/>
+      </g>
+      <text x="90" y="40" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="15" fill="#f59e0b">KENDRIYA VIDYALAYA</text>
+      <text x="90" y="58" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="13" fill="#ffffff">WARDHA</text>
+      <text x="90" y="74" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="10" fill="#94a3b8" letter-spacing="0.5">Campus Housekeeping Project</text>
+    </svg>

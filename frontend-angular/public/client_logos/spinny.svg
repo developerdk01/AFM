@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(18, 18)">
+        <circle cx="26" cy="26" r="24" fill="#6c2bd9"/>
+        <path d="M16 26 C16 18 36 18 36 26 C36 34 16 34 16 26" stroke="#ffffff" stroke-width="4" fill="none"/>
+      </g>
+      <text x="80" y="48" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="30" fill="#6c2bd9">Spinny</text>
+    </svg>

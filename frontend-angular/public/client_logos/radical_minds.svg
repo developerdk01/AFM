@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(15, 20)">
+        <circle cx="24" cy="24" r="22" fill="#0284c7"/>
+        <path d="M12 24 L24 12 L36 24 L24 36 Z" fill="#ffffff"/>
+      </g>
+      <text x="72" y="38" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="18" fill="#0f172a">RADICAL</text>
+      <text x="72" y="58" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="20" fill="#0284c7">MINDS</text>
+    </svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(15, 18)">
+        <path d="M12 26 Q12 10 26 10 Q40 10 40 26 Q40 42 26 50 Q12 42 12 26 Z" fill="#00a88f"/>
+        <circle cx="20" cy="18" r="8" fill="#ffb81c"/>
+        <circle cx="32" cy="18" r="8" fill="#e31837"/>
+        <circle cx="26" cy="30" r="8" fill="#78be20"/>
+      </g>
+      <text x="70" y="38" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="18" fill="#003366">club</text>
+      <text x="70" y="58" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="22" fill="#00a88f">Mahindra</text>
+    </svg>

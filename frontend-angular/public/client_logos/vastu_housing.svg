@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(15, 20)">
+        <polygon points="24,5 44,22 36,22 36,44 12,44 12,22 4,22" fill="#1e3a8a"/>
+        <rect x="20" y="28" width="8" height="16" fill="#f59e0b"/>
+      </g>
+      <text x="70" y="40" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="22" fill="#1e3a8a">VASTU</text>
+      <text x="70" y="58" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="10" fill="#f59e0b" letter-spacing="1">HOUSING FINANCE CORP.</text>
+    </svg>

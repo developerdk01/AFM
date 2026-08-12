@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(15, 20)">
+        <path d="M0 0 L20 25 L0 50 L15 50 L35 25 L15 0 Z" fill="#f37021"/>
+        <path d="M20 0 L40 25 L20 50 L35 50 L55 25 L35 0 Z" fill="#003366"/>
+      </g>
+      <text x="80" y="38" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="20" fill="#003366">ICICI</text>
+      <text x="135" y="38" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="20" fill="#f37021">Lombard</text>
+      <text x="80" y="56" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="10" fill="#555555" letter-spacing="1">GENERAL INSURANCE</text>
+    </svg>

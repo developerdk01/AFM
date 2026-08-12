@@ -1,0 +1,7 @@
+<svg viewBox="0 0 160 40" width="160" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Spinny icon -->
+  <circle cx="20" cy="20" r="14" stroke="#0A2540" stroke-width="3" fill="none"/>
+  <circle cx="20" cy="20" r="6" fill="#FBB03B"/>
+  <!-- Text: "Spinny" -->
+  <text x="44" y="27" fill="#0A2540" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="bold" font-size="20" letter-spacing="-0.5px">Spinny</text>
+</svg>

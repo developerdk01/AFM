@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 90" width="300" height="90">
+      <rect width="300" height="90" rx="12" fill="#ffffff"/>
+      <g transform="translate(15, 18)">
+        <rect x="0" y="0" width="54" height="54" fill="#004c8f" rx="6"/>
+        <rect x="15" y="15" width="24" height="24" fill="#ed232a"/>
+        <rect x="21" y="0" width="12" height="54" fill="#ffffff"/>
+        <rect x="0" y="21" width="54" height="12" fill="#ffffff"/>
+        <rect x="21" y="21" width="12" height="12" fill="#004c8f"/>
+      </g>
+      <text x="82" y="44" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="25" fill="#004c8f" letter-spacing="0.5">HDFC BANK</text>
+      <text x="82" y="60" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="10" fill="#ed232a" letter-spacing="1">We understand your world</text>
+    </svg>
