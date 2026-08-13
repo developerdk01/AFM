@@ -85,7 +85,7 @@ public class EmailService {
             conn.setReadTimeout(5000);
 
             String jsonInputString = String.format(
-                "{\"sender\":{\"name\":\"AFM HR Operations\",\"email\":\"masumduhijod01@gmail.com\"},\"to\":[{\"email\":\"%s\",\"name\":\"%s\"}],\"subject\":\"%s\",\"textContent\":\"%s\"}",
+                "{\"sender\":{\"name\":\"AFM HR Operations\",\"email\":\"developerdk01@gmail.com\"},\"to\":[{\"email\":\"%s\",\"name\":\"%s\"}],\"subject\":\"%s\",\"textContent\":\"%s\"}",
                 recipientEmail,
                 recipientName != null ? recipientName.replace("\"", "\\\"") : "Applicant",
                 subject.replace("\"", "\\\""),
@@ -113,7 +113,7 @@ public class EmailService {
     private void sendViaSmtp(String recipientEmail, String subject, String textContent) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("masumduhijod01@gmail.com");
+            message.setFrom("developerdk01@gmail.com");
             message.setTo(recipientEmail);
             message.setSubject(subject);
             message.setText(textContent);
