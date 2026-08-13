@@ -730,40 +730,30 @@ export class App implements OnInit, AfterViewInit {
 
   // Load Public Jobs (only active = true)
   public async loadPublicJobs() {
-    let fetchedData: any[] = [];
     try {
       const res = await fetch(`${this.gatewayUrl}/public/jobs`);
       if (res.ok) {
         const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-          fetchedData = data;
+        if (Array.isArray(data)) {
+          this.jobs.set(data.filter((j: any) => j.active !== false && j.isVisible !== false));
         }
       }
     } catch (e) {}
-
-    const localJobs = this.getMockJobs();
-    const combined = [...fetchedData, ...localJobs.filter(lj => !fetchedData.some(fj => fj.id === lj.id))];
-    this.jobs.set(combined.filter((j: any) => j.active !== false && j.isVisible !== false));
   }
 
   // Load Admin Jobs (active + inactive)
   public async loadAdminJobs() {
-    let fetchedData: any[] = [];
     const headers = { 'Authorization': `Bearer ${this.token()}` };
     try {
       const res = await fetch(`${this.gatewayUrl}/admin/jobs`, { headers });
       if (res.ok) {
         const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-          fetchedData = data;
+        if (Array.isArray(data)) {
+          this.adminJobs.set(data);
+          this.jobs.set(data.filter((j: any) => j.active !== false && j.isVisible !== false));
         }
       }
     } catch (e) {}
-
-    const localJobs = this.getMockJobs();
-    const combined = [...fetchedData, ...localJobs.filter(lj => !fetchedData.some(fj => fj.id === lj.id))];
-    this.adminJobs.set(combined);
-    this.jobs.set(combined.filter((j: any) => j.active !== false && j.isVisible !== false));
   }
 
   // Save jobs to LocalStorage persistence
@@ -904,22 +894,7 @@ export class App implements OnInit, AfterViewInit {
   }
 
   private getMockJobs() {
-    if (typeof localStorage !== 'undefined') {
-      const stored = localStorage.getItem('afm_mock_jobs');
-      if (stored) {
-        try {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed;
-          }
-        } catch (e) {}
-      }
-    }
-    return [
-      { id: 1001, jobRole: 'HR Manager', type: 'Private', location: 'Pune', experience: '2-4 Years', salary: '₹ 3.5 - 4.8 LPA', jobDescription: 'Human Resource Operations & Recruitment', skills: 'Recruitment, Payroll', active: true, isVisible: true },
-      { id: 1002, jobRole: 'Java Developer', type: 'Private', location: 'Pune', experience: '2-4 Years', salary: '₹ 3.5 - 4.8 LPA', jobDescription: 'Core Java 8 & Spring Boot Microservices', skills: 'Java, Spring Boot', active: true, isVisible: true },
-      { id: 1003, jobRole: 'Facility Operations Supervisor', type: 'Private', location: 'Nagpur', experience: '1-3 Years', salary: '₹ 2.8 - 3.6 LPA', jobDescription: 'Commercial Facility Operations & Maintenance', skills: 'Facility Management', active: true, isVisible: true }
-    ];
+    return [];
   }
 
   // Secure download resume
@@ -1220,35 +1195,14 @@ export class App implements OnInit, AfterViewInit {
 
   // Mock data fallbacks for standalone local running
   private getMockLeads() {
-    return [
-      { id: 1, fullName: 'Amit Sharma', companyName: 'Tata Trent', companyEmail: 'amit.sharma@trent-tata.com', phoneNumber: '9876543210', requiredService: 'Temporary Staffing', requiredStaffSize: '50-200', targetLocation: 'Pune', createdAt: new Date() },
-      { id: 2, fullName: 'Rohit Mehta', companyName: 'Mahindra Logistics', companyEmail: 'mehta.rohit@mahindra.com', phoneNumber: '9123456780', requiredService: 'Payroll Outsourcing', requiredStaffSize: '200+', targetLocation: 'Nagpur', createdAt: new Date() }
-    ];
+    return [];
   }
 
   private getMockApplications() {
-    if (typeof localStorage !== 'undefined') {
-      const stored = localStorage.getItem('afm_mock_applications');
-      if (stored) {
-        try {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed;
-          }
-        } catch (e) {}
-      }
-    }
-    return [
-      { id: 1, fullName: 'Vijay Patil', emailAddress: 'vijay.patil@gmail.com', phoneNumber: '9001122334', targetRole: 'Site Engineer', preferredLocation: 'Nagpur', totalExperience: '2-5 Years', expectedCtc: 6.5, noticePeriod: 'Immediate', resumeUrl: '#', status: 'RECEIVED', isVisible: true, createdAt: new Date() },
-      { id: 2, fullName: 'Nisha Gupta', emailAddress: 'nisha.gupta@yahoo.com', phoneNumber: '9988776655', targetRole: 'Sales Executive', preferredLocation: 'Pune', totalExperience: '1-2 Years', expectedCtc: 4.2, noticePeriod: '30 Days', resumeUrl: '#', status: 'REVIEWED', isVisible: true, createdAt: new Date() }
-    ];
+    return [];
   }
 
   private getMockUsers() {
-    return [
-      { id: 1, username: 'superadmin', role: 'ROLE_SUPERADMIN', active: true },
-      { id: 2, username: 'hruser', role: 'ROLE_HR', active: true },
-      { id: 3, username: 'adminuser', role: 'ROLE_ADMIN', active: true }
-    ];
+    return [];
   }
 }
