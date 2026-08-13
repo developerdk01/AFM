@@ -20,56 +20,59 @@ public class EmailService {
     /**
      * Send Candidate Thank You Confirmation Email
      */
-    @Async
     public void sendCandidateThankYou(String candidateEmail, String candidateName, String jobRole) {
-        if (mailSender == null || candidateEmail == null || candidateEmail.trim().isEmpty()) {
-            return;
-        }
-        try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(fromEmail); // Sender: masumduhijod01@gmail.com
-            message.setTo(candidateEmail.trim());
-            message.setSubject("Application Received - " + (jobRole != null ? jobRole : "Career Position") + " | AFM Pvt. Ltd.");
-            message.setText("Dear " + candidateName + ",\n\n" +
-                    "Thank you for applying for the " + (jobRole != null ? jobRole : "opportunity") + " position at Aatmanirbhar Facility Management Pvt. Ltd.\n\n" +
-                    "Our recruitment operations team has received your application details. Our HR team will review your profile and contact you shortly if your credentials match our client requirements.\n\n" +
-                    "Best Regards,\n" +
-                    "HR Operations Team\n" +
-                    "Aatmanirbhar Facility Management Pvt. Ltd.\n" +
-                    "https://aatmanirbharfacility.in");
-            mailSender.send(message);
-            System.out.println("✅ Candidate Confirmation Email sent to: " + candidateEmail);
-        } catch (Exception e) {
-            System.err.println("⚠️ Could not send Candidate Email: " + e.getMessage());
-        }
+        new Thread(() -> {
+            if (mailSender == null || candidateEmail == null || candidateEmail.trim().isEmpty()) {
+                return;
+            }
+            try {
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setFrom("masumduhijod01@gmail.com");
+                message.setTo(candidateEmail.trim());
+                message.setSubject("Application Received - " + (jobRole != null ? jobRole : "Career Position") + " | AFM Pvt. Ltd.");
+                message.setText("Dear " + candidateName + ",\n\n" +
+                        "Thank you for applying for the " + (jobRole != null ? jobRole : "opportunity") + " position at Aatmanirbhar Facility Management Pvt. Ltd.\n\n" +
+                        "Our recruitment operations team has received your application details. Our HR team will review your profile and contact you shortly if your credentials match our client requirements.\n\n" +
+                        "Best Regards,\n" +
+                        "HR Operations Team\n" +
+                        "Aatmanirbhar Facility Management Pvt. Ltd.\n" +
+                        "https://afmtest.vercel.app");
+                mailSender.send(message);
+                System.out.println("✅ Candidate Confirmation Email sent to: " + candidateEmail);
+            } catch (Exception e) {
+                System.err.println("⚠️ Could not send Candidate Email to " + candidateEmail + ": " + e.getMessage());
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     /**
      * Send HR Team Notification Alert Email to masumduhijod01@gmail.com
      */
-    @Async
     public void sendHrApplicationAlert(String candidateName, String candidateEmail, String phone, String jobRole) {
-        if (mailSender == null) {
-            return;
-        }
-        try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(fromEmail);
-            // HR Alert Mail Recipient: Configured to masumduhijod01@gmail.com
-            message.setTo(fromEmail != null ? fromEmail : "masumduhijod01@gmail.com"); 
-            message.setSubject("🚨 New Candidate Application: " + candidateName + " for " + (jobRole != null ? jobRole : "Vacancy"));
-            message.setText("A new candidate has submitted their application on the AFM Portal:\n\n" +
-                    "• Candidate Name: " + candidateName + "\n" +
-                    "• Email Address: " + candidateEmail + "\n" +
-                    "• Phone Contact: " + phone + "\n" +
-                    "• Role Applied: " + (jobRole != null ? jobRole : "General Pipeline") + "\n\n" +
-                    "Please log in to the HR Admin Operations Console to review the candidate application and resume:\n" +
-                    "https://aatmanirbharfacility.in/admin");
-            mailSender.send(message);
-            System.out.println("✅ HR Team Notification Alert Email sent to: " + fromEmail);
-        } catch (Exception e) {
-            System.err.println("⚠️ Could not send HR Alert Email: " + e.getMessage());
-        }
+        new Thread(() -> {
+            if (mailSender == null) {
+                return;
+            }
+            try {
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setFrom("masumduhijod01@gmail.com");
+                message.setTo("masumduhijod01@gmail.com");
+                message.setSubject("🚨 New Candidate Application: " + candidateName + " for " + (jobRole != null ? jobRole : "Vacancy"));
+                message.setText("A new candidate has submitted their application on the AFM Portal:\n\n" +
+                        "• Candidate Name: " + candidateName + "\n" +
+                        "• Email Address: " + candidateEmail + "\n" +
+                        "• Phone Contact: " + phone + "\n" +
+                        "• Role Applied: " + (jobRole != null ? jobRole : "General Pipeline") + "\n\n" +
+                        "Please log in to the HR Admin Operations Console to review the candidate application and resume:\n" +
+                        "https://afmtest.vercel.app");
+                mailSender.send(message);
+                System.out.println("✅ HR Team Notification Alert Email sent to: masumduhijod01@gmail.com");
+            } catch (Exception e) {
+                System.err.println("⚠️ Could not send HR Alert Email: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     /**
