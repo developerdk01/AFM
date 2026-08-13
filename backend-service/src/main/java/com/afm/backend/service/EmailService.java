@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-    @Autowired(required = false)
+    @Autowired
     private JavaMailSender mailSender;
 
     // Primary Sender & HR Recipient Email (Configured: masumduhijod01@gmail.com)
