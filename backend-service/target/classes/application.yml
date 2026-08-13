@@ -26,20 +26,18 @@ spring:
   # 📩 PRIMARY EMAIL CONFIGURATION (HR Alerts & Transactional Mails)
   mail:
     host: smtp.gmail.com
-    port: 465
+    port: 587
     username: masumduhijod01@gmail.com  # Primary HR & System Sender Email Address
     password: "qgpi hfkt tgvd xtiv"     # Active 16-character Google App Password
     properties:
       mail:
         smtp:
           auth: true
-          ssl:
+          starttls:
             enable: true
-            trust: "*"
-          socketFactory:
-            port: 465
-            class: javax.net.ssl.SSLSocketFactory
-            fallback: false
+            required: true
+          ssl:
+            trust: smtp.gmail.com
 
 eureka:
   client:
