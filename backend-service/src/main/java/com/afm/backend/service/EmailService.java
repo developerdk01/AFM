@@ -17,31 +17,32 @@ public class EmailService {
     @Value("${spring.mail.username:masumduhijod01@gmail.com}")
     private String fromEmail;
 
+    @Value("${brevo.api.key:}")
+    private String brevoApiKey;
+
     /**
      * Send Candidate Thank You Confirmation Email
      */
     public void sendCandidateThankYou(String candidateEmail, String candidateName, String jobRole) {
         new Thread(() -> {
-            if (mailSender == null || candidateEmail == null || candidateEmail.trim().isEmpty()) {
+            if (candidateEmail == null || candidateEmail.trim().isEmpty()) {
                 return;
             }
-            try {
-                SimpleMailMessage message = new SimpleMailMessage();
-                message.setFrom("masumduhijod01@gmail.com");
-                message.setTo(candidateEmail.trim());
-                message.setSubject("Application Received - " + (jobRole != null ? jobRole : "Career Position") + " | AFM Pvt. Ltd.");
-                message.setText("Dear " + candidateName + ",\n\n" +
-                        "Thank you for applying for the " + (jobRole != null ? jobRole : "opportunity") + " position at Aatmanirbhar Facility Management Pvt. Ltd.\n\n" +
-                        "Our recruitment operations team has received your application details. Our HR team will review your profile and contact you shortly if your credentials match our client requirements.\n\n" +
-                        "Best Regards,\n" +
-                        "HR Operations Team\n" +
-                        "Aatmanirbhar Facility Management Pvt. Ltd.\n" +
-                        "https://afmtest.vercel.app");
-                mailSender.send(message);
-                System.out.println("✅ Candidate Confirmation Email sent to: " + candidateEmail);
-            } catch (Exception e) {
-                System.err.println("⚠️ Could not send Candidate Email to " + candidateEmail + ": " + e.getMessage());
-                e.printStackTrace();
+            String subject = "Application Received - " + (jobRole != null ? jobRole : "Career Position") + " | AFM Pvt. Ltd.";
+            String textContent = "Dear " + candidateName + ",\n\n" +
+                    "Thank you for applying for the " + (jobRole != null ? jobRole : "opportunity") + " position at Aatmanirbhar Facility Management Pvt. Ltd.\n\n" +
+                    "Our recruitment operations team has received your application details. Our HR team will review your profile and contact you shortly if your credentials match our client requirements.\n\n" +
+                    "Best Regards,\n" +
+                    "HR Operations Team\n" +
+                    "Aatmanirbhar Facility Management Pvt. Ltd.\n" +
+                    "https://afmtest.vercel.app";
+
+            boolean sent = false;
+            if (brevoApiKey != null && !brevoApiKey.trim().isEmpty()) {
+                sent = sendViaBrevoHttps(candidateEmail.trim(), candidateName, subject, textContent);
+            }
+            if (!sent && mailSender != null) {
+                sendViaSmtp(candidateEmail.trim(), subject, textContent);
             }
         }).start();
     }
@@ -51,28 +52,76 @@ public class EmailService {
      */
     public void sendHrApplicationAlert(String candidateName, String candidateEmail, String phone, String jobRole) {
         new Thread(() -> {
-            if (mailSender == null) {
-                return;
+            String hrEmail = "masumduhijod01@gmail.com";
+            String subject = "🚨 New Candidate Application: " + candidateName + " for " + (jobRole != null ? jobRole : "Vacancy");
+            String textContent = "A new candidate has submitted their application on the AFM Portal:\n\n" +
+                    "• Candidate Name: " + candidateName + "\n" +
+                    "• Email Address: " + candidateEmail + "\n" +
+                    "• Phone Contact: " + phone + "\n" +
+                    "• Role Applied: " + (jobRole != null ? jobRole : "General Pipeline") + "\n\n" +
+                    "Please log in to the HR Admin Operations Console to review the candidate application and resume:\n" +
+                    "https://afmtest.vercel.app";
+
+            boolean sent = false;
+            if (brevoApiKey != null && !brevoApiKey.trim().isEmpty()) {
+                sent = sendViaBrevoHttps(hrEmail, "HR Team", subject, textContent);
             }
-            try {
-                SimpleMailMessage message = new SimpleMailMessage();
-                message.setFrom("masumduhijod01@gmail.com");
-                message.setTo("masumduhijod01@gmail.com");
-                message.setSubject("🚨 New Candidate Application: " + candidateName + " for " + (jobRole != null ? jobRole : "Vacancy"));
-                message.setText("A new candidate has submitted their application on the AFM Portal:\n\n" +
-                        "• Candidate Name: " + candidateName + "\n" +
-                        "• Email Address: " + candidateEmail + "\n" +
-                        "• Phone Contact: " + phone + "\n" +
-                        "• Role Applied: " + (jobRole != null ? jobRole : "General Pipeline") + "\n\n" +
-                        "Please log in to the HR Admin Operations Console to review the candidate application and resume:\n" +
-                        "https://afmtest.vercel.app");
-                mailSender.send(message);
-                System.out.println("✅ HR Team Notification Alert Email sent to: masumduhijod01@gmail.com");
-            } catch (Exception e) {
-                System.err.println("⚠️ Could not send HR Alert Email: " + e.getMessage());
-                e.printStackTrace();
+            if (!sent && mailSender != null) {
+                sendViaSmtp(hrEmail, subject, textContent);
             }
         }).start();
+    }
+
+    private boolean sendViaBrevoHttps(String recipientEmail, String recipientName, String subject, String textContent) {
+        try {
+            java.net.URL url = new java.net.URL("https://api.brevo.com/v3/smtp/email");
+            java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("accept", "application/json");
+            conn.setRequestProperty("api-key", brevoApiKey.trim());
+            conn.setRequestProperty("content-type", "application/json");
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+
+            String jsonInputString = String.format(
+                "{\"sender\":{\"name\":\"AFM HR Operations\",\"email\":\"masumduhijod01@gmail.com\"},\"to\":[{\"email\":\"%s\",\"name\":\"%s\"}],\"subject\":\"%s\",\"textContent\":\"%s\"}",
+                recipientEmail,
+                recipientName != null ? recipientName.replace("\"", "\\\"") : "Applicant",
+                subject.replace("\"", "\\\""),
+                textContent.replace("\n", "\\n").replace("\"", "\\\"")
+            );
+
+            try (java.io.OutputStream os = conn.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+
+            int code = conn.getResponseCode();
+            if (code >= 200 && code < 300) {
+                System.out.println("✅ Email sent via HTTPS Port 443 to: " + recipientEmail);
+                return true;
+            } else {
+                System.err.println("⚠️ Brevo HTTPS API returned HTTP status: " + code);
+            }
+        } catch (Exception e) {
+            System.err.println("⚠️ Brevo HTTPS API Exception: " + e.getMessage());
+        }
+        return false;
+    }
+
+    private void sendViaSmtp(String recipientEmail, String subject, String textContent) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("masumduhijod01@gmail.com");
+            message.setTo(recipientEmail);
+            message.setSubject(subject);
+            message.setText(textContent);
+            mailSender.send(message);
+            System.out.println("✅ Email sent via SMTP to: " + recipientEmail);
+        } catch (Exception e) {
+            System.err.println("⚠️ SMTP Dispatch Warning (Render firewall blocked SMTP port 465/587): " + e.getMessage());
+        }
     }
 
     /**
