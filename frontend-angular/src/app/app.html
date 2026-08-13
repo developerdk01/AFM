@@ -922,8 +922,8 @@
           <div class="metric-card" style="background: white; padding: 22px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center;">
             <div class="metric-data">
               <h4 style="font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">Active Resumes</h4>
-              <span style="font-size: 2rem; font-weight: 900; color: #0284c7; font-family: var(--font-display);">{{ applications().length || 42 }}</span>
-              <div style="font-size: 0.72rem; color: #10b981; margin-top: 4px; font-weight: 600;">+14% Increase this week</div>
+              <span style="font-size: 2rem; font-weight: 900; color: #0284c7; font-family: var(--font-display);">{{ applications().length }}</span>
+              <div style="font-size: 0.72rem; color: #10b981; margin-top: 4px; font-weight: 600;">Real DB Submissions</div>
             </div>
             <div class="metric-icon" style="font-size: 2.2rem; background: #e0f2fe; padding: 12px; border-radius: 14px;">📄</div>
           </div>
@@ -931,8 +931,8 @@
           <div class="metric-card" style="background: white; padding: 22px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center;">
             <div class="metric-data">
               <h4 style="font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">Active Vacancies</h4>
-              <span style="font-size: 2rem; font-weight: 900; color: #0f172a; font-family: var(--font-display);">{{ adminJobs().length || 18 }}</span>
-              <div style="font-size: 0.72rem; color: #38bdf8; margin-top: 4px; font-weight: 600;">Published across 5 hubs</div>
+              <span style="font-size: 2rem; font-weight: 900; color: #0f172a; font-family: var(--font-display);">{{ adminJobs().length }}</span>
+              <div style="font-size: 0.72rem; color: #38bdf8; margin-top: 4px; font-weight: 600;">Live Database Listings</div>
             </div>
             <div class="metric-icon" style="font-size: 2.2rem; background: #f0fdf4; padding: 12px; border-radius: 14px;">📢</div>
           </div>
@@ -940,8 +940,8 @@
           <div class="metric-card" style="background: white; padding: 22px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center;">
             <div class="metric-data">
               <h4 style="font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">B2B Sourcing Leads</h4>
-              <span style="font-size: 2rem; font-weight: 900; color: #7c3aed; font-family: var(--font-display);">{{ leads().length || 15 }}</span>
-              <div style="font-size: 0.72rem; color: #8b5cf6; margin-top: 4px; font-weight: 600;">Corporate procurement queries</div>
+              <span style="font-size: 2rem; font-weight: 900; color: #7c3aed; font-family: var(--font-display);">{{ leads().length }}</span>
+              <div style="font-size: 0.72rem; color: #8b5cf6; margin-top: 4px; font-weight: 600;">Corporate Database Queries</div>
             </div>
             <div class="metric-icon" style="font-size: 2.2rem; background: #f3e8ff; padding: 12px; border-radius: 14px;">💼</div>
           </div>
@@ -1053,32 +1053,20 @@
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 14px;">
-              <div style="display: flex; align-items: center; gap: 14px; padding: 12px; background: #f8fafc; border-radius: 12px; border: 1px solid #f1f5f9;">
-                <span style="font-size: 1.5rem; background: #e0f2fe; padding: 8px; border-radius: 10px;">👤</span>
-                <div style="flex-grow: 1;">
-                  <div style="font-weight: 700; font-size: 0.9rem; color: var(--primary-color);">Rajesh V. Sharma</div>
-                  <div style="font-size: 0.76rem; color: #64748b;">Applied for <b>Facility Operations Supervisor</b> (Pune Hub)</div>
+              @for (app of applications().slice(0, 3); track app.id) {
+                <div style="display: flex; align-items: center; gap: 14px; padding: 12px; background: #f8fafc; border-radius: 12px; border: 1px solid #f1f5f9;">
+                  <span style="font-size: 1.5rem; background: #e0f2fe; padding: 8px; border-radius: 10px;">👤</span>
+                  <div style="flex-grow: 1;">
+                    <div style="font-weight: 700; font-size: 0.9rem; color: var(--primary-color);">{{ app.fullName }}</div>
+                    <div style="font-size: 0.76rem; color: #64748b;">Applied for <b>{{ app.targetRole }}</b> ({{ app.preferredLocation }})</div>
+                  </div>
+                  <span style="font-size: 0.72rem; color: #10b981; font-weight: 700; background: #ecfdf5; padding: 4px 10px; border-radius: 12px;">{{ app.status || 'RECEIVED' }}</span>
                 </div>
-                <span style="font-size: 0.72rem; color: #10b981; font-weight: 700; background: #ecfdf5; padding: 4px 10px; border-radius: 12px;">NEW</span>
-              </div>
-
-              <div style="display: flex; align-items: center; gap: 14px; padding: 12px; background: #f8fafc; border-radius: 12px; border: 1px solid #f1f5f9;">
-                <span style="font-size: 1.5rem; background: #f3e8ff; padding: 8px; border-radius: 10px;">👤</span>
-                <div style="flex-grow: 1;">
-                  <div style="font-weight: 700; font-size: 0.9rem; color: var(--primary-color);">Priya Anant Kulkarni</div>
-                  <div style="font-size: 0.76rem; color: #64748b;">Applied for <b>Sales Coordinator & BFSI Lead</b> (Nagpur)</div>
+              } @empty {
+                <div style="padding: 20px; text-align: center; color: #64748b; font-size: 0.85rem;">
+                  No candidate applications received yet. Real applications will appear here.
                 </div>
-                <span style="font-size: 0.72rem; color: #8b5cf6; font-weight: 700; background: #f3e8ff; padding: 4px 10px; border-radius: 12px;">SCREENING</span>
-              </div>
-
-              <div style="display: flex; align-items: center; gap: 14px; padding: 12px; background: #f8fafc; border-radius: 12px; border: 1px solid #f1f5f9;">
-                <span style="font-size: 1.5rem; background: #f0fdf4; padding: 8px; border-radius: 10px;">👤</span>
-                <div style="flex-grow: 1;">
-                  <div style="font-weight: 700; font-size: 0.9rem; color: var(--primary-color);">Sunil Kumar Singh</div>
-                  <div style="font-size: 0.76rem; color: #64748b;">Applied for <b>Security Supervisor - Govt Project</b> (Bhopal)</div>
-                </div>
-                <span style="font-size: 0.72rem; color: #047857; font-weight: 700; background: #ecfdf5; padding: 4px 10px; border-radius: 12px;">INTERVIEW</span>
-              </div>
+              }
             </div>
           </div>
 
