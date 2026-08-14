@@ -487,15 +487,25 @@
         <div class="branch-locator-grid">
           <div class="branch-locator-body">
             <h2>find a branch near you</h2>
-            <p>With strategic physical offices in **Pune, Prayagraj, Nagpur, Bhopal, and Gwalior**, we deploy local talent and coordinate operations across major regional industrial areas.</p>
+            <p>With strategic physical offices and operational hubs across <b>Nagpur, Pune, Mumbai, Delhi, Noida, Gurgaon (Haryana), Gujarat, Chennai, Hyderabad, Bangalore, Metro Cities & Pan-India</b>, we deploy local talent and coordinate facility operations nationwide.</p>
             
             <div class="branch-locator-selectors">
-              <select class="form-control" style="max-width: 300px; border-radius: 30px; margin-bottom: 20px;" [ngModel]="selectedBranch()" (ngModelChange)="selectedBranch.set($event)">
+              <select class="form-control" style="max-width: 340px; border-radius: 30px; margin-bottom: 20px;" [ngModel]="selectedBranch()" (ngModelChange)="selectedBranch.set($event)">
                 <option value="pune">Pune (HQ)</option>
-                <option value="nagpur">Nagpur</option>
-                <option value="bhopal">Bhopal</option>
-                <option value="gwalior">Gwalior</option>
-                <option value="prayagraj">Prayagraj</option>
+                <option value="nagpur">Nagpur Hub</option>
+                <option value="mumbai">Mumbai Center</option>
+                <option value="delhi">Delhi Regional HQ</option>
+                <option value="noida">Noida Industrial Hub</option>
+                <option value="gurgaon">Gurgaon Corporate Hub (Haryana)</option>
+                <option value="gujarat">Gujarat Regional Center</option>
+                <option value="chennai">Chennai South Hub</option>
+                <option value="hyderabad">Hyderabad Operations Center</option>
+                <option value="bangalore">Bangalore Tech & Utility Hub</option>
+                <option value="metro">Metro Cities Network</option>
+                <option value="panindia">Pan-India Deployment Hub</option>
+                <option value="bhopal">Bhopal Office</option>
+                <option value="gwalior">Gwalior Point</option>
+                <option value="prayagraj">Prayagraj Hub</option>
               </select>
             </div>
           </div>
@@ -643,13 +653,13 @@
         <!-- Metric 3: Regional Operating Hubs -->
         <div style="background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 28px 20px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.18); box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
           <div style="font-size: 2.85rem; font-weight: 900; color: #34d399; font-family: var(--font-display); line-height: 1; letter-spacing: -1px;">
-            {{ officeCount() }}
+            {{ officeCount() }}+
           </div>
           <div style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #ffffff; margin-top: 12px;">
-            Regional Operational Hubs
+            Pan-India Operational Hubs
           </div>
           <div style="font-size: 0.76rem; color: #94a3b8; margin-top: 4px; font-weight: 500;">
-            Pune, Prayagraj, Nagpur, Bhopal & Gwalior
+            Nagpur, Pune, Mumbai, Delhi, Noida, Gurgaon, Gujarat, Chennai, Hyderabad & Bangalore
           </div>
         </div>
 

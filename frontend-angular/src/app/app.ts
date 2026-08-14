@@ -102,8 +102,18 @@ export class App implements OnInit, AfterViewInit {
   // Branch Locator Active State
   public selectedBranch = signal<string>('pune');
   public branchData: Record<string, { name: string; manager: string; phone: string; address: string; timing: string }> = {
-    pune: { name: 'Pune Head Office', manager: 'Rajesh Sharma', phone: '+91 98230 12345', address: 'Aundh Ravet BRT Road, Pune 411033', timing: '9:30 AM - 6:30 PM' },
-    nagpur: { name: 'Nagpur Regional Office', manager: 'Amit Deshmukh', phone: '+91 97654 54321', address: 'Hanuman Nagar, Nagpur 440024', timing: '9:30 AM - 6:00 PM' },
+    pune: { name: 'Pune Head Office (HQ)', manager: 'Rajesh Sharma', phone: '+91 98230 12345', address: 'Aundh Ravet BRT Road, Pune 411033', timing: '9:30 AM - 6:30 PM' },
+    nagpur: { name: 'Nagpur Regional Hub', manager: 'Amit Deshmukh', phone: '+91 97654 54321', address: 'Hanuman Nagar, Nagpur 440024', timing: '9:30 AM - 6:00 PM' },
+    mumbai: { name: 'Mumbai Operations Center', manager: 'Sanjay Kulkarni', phone: '+91 98200 98765', address: 'BKC Business District, Mumbai 400051', timing: '9:00 AM - 7:00 PM' },
+    delhi: { name: 'Delhi Regional Office', manager: 'Rakesh Verma', phone: '+91 98110 54321', address: 'Connaught Place, New Delhi 110001', timing: '9:30 AM - 6:30 PM' },
+    noida: { name: 'Noida Industrial Operations', manager: 'Pankaj Sharma', phone: '+91 98120 33445', address: 'Sector 62, Noida 201309', timing: '9:00 AM - 6:30 PM' },
+    gurgaon: { name: 'Gurgaon Corporate Hub (Haryana)', manager: 'Karan Malhotra', phone: '+91 98100 66778', address: 'Cyber City, Gurgaon, Haryana 122002', timing: '9:30 AM - 6:30 PM' },
+    gujarat: { name: 'Gujarat Regional Hub', manager: 'Jignesh Patel', phone: '+91 98980 11223', address: 'SG Highway, Ahmedabad, Gujarat 380054', timing: '9:30 AM - 6:30 PM' },
+    chennai: { name: 'Chennai South Hub', manager: 'R. Sundaram', phone: '+91 98400 44556', address: 'OMR IT Corridor, Chennai 600096', timing: '9:30 AM - 6:30 PM' },
+    hyderabad: { name: 'Hyderabad Operations Center', manager: 'Venkatesh Rao', phone: '+91 98490 77889', address: 'HITEC City, Hyderabad 500081', timing: '9:30 AM - 6:30 PM' },
+    bangalore: { name: 'Bangalore Tech & Utility Hub', manager: 'Pradeep Gowda', phone: '+91 98450 33221', address: 'Whitefield, Bangalore 560066', timing: '9:00 AM - 6:30 PM' },
+    metro: { name: 'Metro Cities Operations Network', manager: 'Central Ops Desk', phone: '+91 98230 12345', address: 'All Major Tier-1 & Tier-2 Metro Hubs', timing: '24/7 Deployed Support' },
+    panindia: { name: 'Pan-India Deployment Hub', manager: 'National Ops Director', phone: '+91 98230 12345', address: 'Pan-India Corporate & Industrial Site Support', timing: '24/7 Active Dispatch' },
     bhopal: { name: 'Bhopal Branch Office', manager: 'Vikram Singh', phone: '+91 91122 33445', address: 'Ashoka Garden, Bhopal 462023', timing: '10:00 AM - 6:30 PM' },
     gwalior: { name: 'Gwalior Operations Point', manager: 'Sunil Gupta', phone: '+91 90088 77665', address: 'City Centre, Gwalior 474011', timing: '9:30 AM - 5:30 PM' },
     prayagraj: { name: 'Prayagraj Coordination Hub', manager: 'Alok Tripathi', phone: '+91 88990 01122', address: 'Civil Lines, Prayagraj 211001', timing: '9:30 AM - 6:00 PM' }
@@ -387,7 +397,7 @@ export class App implements OnInit, AfterViewInit {
       step++;
       this.clientCount.set(Math.min(Math.round((24 / steps) * step), 24));
       this.candidateCount.set(Math.min(Math.round((2500 / steps) * step), 2500));
-      this.officeCount.set(Math.min(Math.round((5 / steps) * step), 5));
+      this.officeCount.set(Math.min(Math.round((15 / steps) * step), 15));
       this.complianceCount.set(Math.min(Math.round((100 / steps) * step), 100));
 
       if (step >= steps) {
