@@ -693,33 +693,43 @@ export class App implements OnInit, AfterViewInit {
 
   // Load Admin Tables Data
   private async loadAdminData() {
+    if (!this.token()) return;
     const headers = { 'Authorization': `Bearer ${this.token()}` };
 
     // Fetch leads
     if (this.userRole() !== 'ROLE_HR') {
       try {
         const res = await fetch(`${this.gatewayUrl}/admin/leads`, { headers });
-        if (res.ok) this.leads.set(await res.json());
+        if (res.ok) {
+          const data = await res.json();
+          this.leads.set(data);
+        }
       } catch (e) {
-        this.leads.set(this.getMockLeads());
+        console.warn('Could not fetch admin leads:', e);
       }
     }
 
     // Fetch applications
     try {
       const res = await fetch(`${this.gatewayUrl}/admin/applications`, { headers });
-      if (res.ok) this.applications.set(await res.json());
+      if (res.ok) {
+        const data = await res.json();
+        this.applications.set(data);
+      }
     } catch (e) {
-      this.applications.set(this.getMockApplications());
+      console.warn('Could not fetch admin applications:', e);
     }
 
     // Fetch users (SuperAdmin only)
     if (this.userRole() === 'ROLE_SUPERADMIN') {
       try {
         const res = await fetch(`${this.gatewayUrl}/admin/users`, { headers });
-        if (res.ok) this.users.set(await res.json());
+        if (res.ok) {
+          const data = await res.json();
+          this.users.set(data);
+        }
       } catch (e) {
-        this.users.set(this.getMockUsers());
+        console.warn('Could not fetch admin users:', e);
       }
       this.loadPublicSettings(); // reload toggles list
     }
@@ -728,21 +738,29 @@ export class App implements OnInit, AfterViewInit {
     this.loadAdminJobs();
   }
 
-  // Load Public Jobs (only active = true)
-  public async loadPublicJobs() {
+  // Load Public Jobs (only active = true) with auto-retry for cloud cold starts
+  public async loadPublicJobs(retryCount = 0) {
     try {
       const res = await fetch(`${this.gatewayUrl}/public/jobs`);
       if (res.ok) {
         const data = await res.json();
         if (Array.isArray(data)) {
           this.jobs.set(data.filter((j: any) => j.active !== false && j.isVisible !== false));
+          return;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Could not load public jobs:', e);
+    }
+
+    if (retryCount < 3) {
+      setTimeout(() => this.loadPublicJobs(retryCount + 1), 3000);
+    }
   }
 
   // Load Admin Jobs (active + inactive)
   public async loadAdminJobs() {
+    if (!this.token()) return;
     const headers = { 'Authorization': `Bearer ${this.token()}` };
     try {
       const res = await fetch(`${this.gatewayUrl}/admin/jobs`, { headers });
@@ -753,7 +771,9 @@ export class App implements OnInit, AfterViewInit {
           this.jobs.set(data.filter((j: any) => j.active !== false && j.isVisible !== false));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Could not load admin jobs:', e);
+    }
   }
 
   // Save jobs to LocalStorage persistence

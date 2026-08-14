@@ -579,6 +579,26 @@
               </div>
             </div>
             <div class="form-group">
+              <label class="form-label">Target Operation Location</label>
+              <select [(ngModel)]="leadLocation" name="leadLocation" class="form-control">
+                <option value="Pune">Pune</option>
+                <option value="Nagpur">Nagpur</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Noida">Noida</option>
+                <option value="Gurgaon (Haryana)">Gurgaon (Haryana)</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Metro Cities">Metro Cities</option>
+                <option value="Pan India">Pan India</option>
+                <option value="Prayagraj">Prayagraj</option>
+                <option value="Bhopal">Bhopal</option>
+                <option value="Gwalior">Gwalior</option>
+              </select>
+            </div>
+            <div class="form-group">
               <label class="form-label">Message / Details</label>
               <textarea [(ngModel)]="leadDetails" name="leadDetails" class="form-control" rows="4" placeholder="Briefly describe your hiring requirements..."></textarea>
             </div>
@@ -781,8 +801,18 @@
               <label class="form-label">Location</label>
               <select [(ngModel)]="appLocation" name="appLocation" class="form-control">
                 <option value="Pune">Pune</option>
-                <option value="Prayagraj">Prayagraj</option>
                 <option value="Nagpur">Nagpur</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Noida">Noida</option>
+                <option value="Gurgaon (Haryana)">Gurgaon (Haryana)</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Metro Cities">Metro Cities</option>
+                <option value="Pan India">Pan India</option>
+                <option value="Prayagraj">Prayagraj</option>
                 <option value="Bhopal">Bhopal</option>
                 <option value="Gwalior">Gwalior</option>
               </select>
